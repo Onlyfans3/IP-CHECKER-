@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realistic Oval Eyes</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Container for the form */
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+        }
+
+        /* Rainbow text for TUAKA */
+        h1 {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+            -webkit-background-clip: text;
+            color: transparent;
+            background-size: 400%;
+            animation: rainbow 3s linear infinite;
+        }
+
+        @keyframes rainbow {
+            0% {background-position: 0%;}
+            100% {background-position: 100%;}
+        }
+
+        /* Styling the input field */
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #00aaff;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 170, 255, 0.2);
+        }
+
+        /* Styling the button */
+        button {
+            background-color: #00aaff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #007acc;
+        }
+
+        /* Styling the message output */
+        p#message {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Styling for more realistic oval-shaped blinking eyes */
+        .eyes {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 30px;
+        }
+
+        /* Eye structure */
+        .eye {
+            width: 150px;
+            height: 80px;
+            background-color: #fff;
+            border: 4px solid #000;
+            border-radius: 60% 60% 50% 50%; /* Gives the eye an oval shape */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Iris inside the eye */
+        .iris {
+            width: 70px;
+            height: 70px;
+            background-color: #1e90ff;
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+            left: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Adds a shadow for depth */
+            overflow: hidden;
+        }
+
+        /* Pupil inside the iris */
+        .pupil {
+            width: 30px;
+            height: 30px;
+            background-color: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        /* Blinking effect (eyelids) */
+        .eyelid {
+            width: 150px;
+            height: 81px;
+            background-color: #a2a2a2;
+            position: absolute;
+            top: -40px;
+            left: 0;
+            animation: blink 2s infinite;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);     
+        }
+
+        /* Eyelid blinking animation */
+        @keyframes blink {
+            0%, 100% { top: -60px; }
+            50% { top: 1px; } /* Eyelid covers the eye halfway */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome TUAKA 🌈</h1>
+        <h2>Enter a value:</h2>
+        <input type="text" id="inputField" placeholder="Enter value">
+        <button onclick="checkAndStore()">Check</button>
+        
+        <p id="message"></p>
+    </div>
+
+    <!-- Realistic oval-shaped blinking eyes centered on the page -->
+    <div class="eyes">
+        <div class="eye">
+            <div class="iris">
+                <div class="pupil"></div>
+            </div>
+            <div class="eyelid"></div>
+        </div>
+        <div class="eye">
+            <div class="iris">
+                <div class="pupil"></div>
+            </div>
+            <div class="eyelid"></div>
+        </div>
+    </div>
+
+    <script>
+        // Function to store and check the value in localStorage
+        function checkAndStore() {
+            // Get the value from the input field
+            const inputValue = document.getElementById('inputField').value.trim();
+            
+            // Get the message display element
+            const messageElement = document.getElementById('message');
+            
+            // Get stored values from localStorage, if any
+            let storedValues = JSON.parse(localStorage.getItem('storedValues')) || [];
+            
+            // Check if the value has been stored before
+            if (storedValues.includes(inputValue)) {
+                messageElement.textContent = "Error: Value has been stored before!";
+                messageElement.style.color = 'red';
+            } else {
+                // Store the new value and display 'Active'
+                storedValues.push(inputValue);
+                localStorage.setItem('storedValues', JSON.stringify(storedValues));
+                messageElement.textContent = "Active";
+                messageElement.style.color = 'green';
+            }
+        }
+    </script>
+
+</body>
+</html>
